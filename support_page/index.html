@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support and Data Deletion page for War of Older. Contact us for any issues or account deletion requests.">
+    <title>War of Older - Support & Data Deletion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-gold: #e3b341;
+            --accent-cyan: #39c5cf;
+            --accent-magenta: #d94296;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Subtle glowing background effects */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.15;
+        }
+        body::before {
+            background: var(--accent-cyan);
+            top: -100px;
+            left: -100px;
+        }
+        body::after {
+            background: var(--accent-magenta);
+            bottom: -100px;
+            right: -100px;
+        }
+        .container {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent-gold), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .section h2 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h2::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .contact-box {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .contact-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+        .email-link {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .email-link:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(227, 179, 65, 0.5);
+        }
+        .instructions-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .instructions-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .instructions-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-magenta);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>War of Older</h1>
+            <p>Support & Account Deletion Center</p>
+        </div>
+        <div class="section">
+            <h2>General Support</h2>
+            <p>If you are experiencing any bugs, have questions about in-app purchases, or want to share feedback about the game, our support team is here to help you.</p>
+            <div class="contact-box">
+                <p>Reach out to our support team directly at:</p>
+                <a href="mailto:suporte@warofolder.com" class="email-link">suporte@warofolder.com</a>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Account & Data Deletion</h2>
+            <p>We respect your privacy. If you wish to permanently delete your <strong>War of Older</strong> account and all associated data, you can request data deletion by sending us an email.</p>
+            
+            <p>Please follow these instructions to ensure your request is processed quickly:</p>
+            <ul class="instructions-list">
+                <li>Send an email to <a href="mailto:suporte@warofolder.com" style="color: var(--accent-cyan); text-decoration: none;">suporte@warofolder.com</a>.</li>
+                <li>Use the subject line: <strong>"Account Deletion Request"</strong>.</li>
+                <li>Include the <strong>Email Address</strong> associated with your account or your <strong>Player ID</strong> (Public ID found in your profile).</li>
+            </ul>
+            <p style="margin-top: 1rem; font-size: 0.9rem; border-left: 3px solid var(--accent-magenta); padding-left: 10px;">
+                <em>Note: Account deletion is irreversible. Once processed, all your progress, coins, and VIP status will be permanently lost. The process is completed within 3 to 5 business days.</em>
+            </p>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2026 War of Older. All rights reserved.
+    </div>
+</body>
+</html>
