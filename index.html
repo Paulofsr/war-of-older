@@ -108,6 +108,7 @@
             width: 36px; height: 36px;
             border-radius: 8px;
             border: 1px solid var(--gold-dark);
+            object-fit: contain;
         }
         .nav-brand span {
             font-family: 'Cinzel', serif;
@@ -177,13 +178,14 @@
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
         .hero-logo {
-            width: 130px; height: 130px;
+            width: 150px; height: 150px;
             border-radius: 28px;
             border: 2px solid rgba(212,175,55,0.35);
             box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 0 120px rgba(212,175,55,0.08);
             margin-bottom: 32px;
             animation: fadeUp 0.9s ease both 0.1s;
-            object-fit: cover;
+            object-fit: contain;
+            background: transparent;
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .hero-logo:hover {
