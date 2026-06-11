@@ -5,33 +5,44 @@
     <meta charset="utf-8" />
     <title>War of Older – The Ultimate Tic-Tac-Toe Battle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="War of Older — The ultimate online Tic-Tac-Toe experience. Multiple boards, global rankings, real-time multiplayer. Available on Google Play and App Store." />
+    <meta name="description"
+        content="War of Older — The ultimate online Tic-Tac-Toe experience. Multiple boards, global rankings, real-time multiplayer. Available on Google Play and App Store." />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
 
     <style>
         /* ─── Reset & Base ─────────────────────────────────────── */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --gold:        #D4AF37;
-            --gold-light:  #FFD700;
-            --gold-dark:   #A0820D;
-            --cyan:        #00D4FF;
-            --navy:        #060b18;
-            --navy-mid:    #0d1628;
-            --navy-card:   rgba(255,255,255,0.04);
-            --border:      rgba(255,255,255,0.08);
-            --text:        #e2e8f0;
-            --text-muted:  #8896a8;
-            --radius:      16px;
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        html { scroll-behavior: smooth; }
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #FFD700;
+            --gold-dark: #A0820D;
+            --cyan: #00D4FF;
+            --navy: #060b18;
+            --navy-mid: #0d1628;
+            --navy-card: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #e2e8f0;
+            --text-muted: #8896a8;
+            --radius: 16px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             background-color: var(--navy);
@@ -42,48 +53,93 @@
         }
 
         /* ─── Scrollbar ────────────────────────────────────────── */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--navy); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+            border-radius: 3px;
+        }
 
         /* ─── Background FX ────────────────────────────────────── */
         .bg-glow {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
+
         .bg-glow::before {
             content: '';
             position: absolute;
-            top: -20%; left: -15%;
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, rgba(212,175,55,0.10) 0%, transparent 70%);
+            top: -20%;
+            left: -15%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.10) 0%, transparent 70%);
             border-radius: 50%;
             animation: driftA 18s ease-in-out infinite alternate;
         }
+
         .bg-glow::after {
             content: '';
             position: absolute;
-            bottom: -20%; right: -15%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+            bottom: -20%;
+            right: -15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             animation: driftB 22s ease-in-out infinite alternate;
         }
-        @keyframes driftA { from { transform: translate(0,0) scale(1); } to { transform: translate(60px, 40px) scale(1.1); } }
-        @keyframes driftB { from { transform: translate(0,0) scale(1); } to { transform: translate(-40px, -60px) scale(1.15); } }
+
+        @keyframes driftA {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(60px, 40px) scale(1.1);
+            }
+        }
+
+        @keyframes driftB {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(-40px, -60px) scale(1.15);
+            }
+        }
 
         /* Grid pattern overlay */
         .grid-overlay {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
             background-image:
-                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
             background-size: 60px 60px;
         }
 
         /* ─── Layout ────────────────────────────────────────────── */
-        .wrapper { position: relative; z-index: 1; }
+        .wrapper {
+            position: relative;
+            z-index: 1;
+        }
 
-        section { position: relative; }
+        section {
+            position: relative;
+        }
 
         .container {
             max-width: 1100px;
@@ -93,23 +149,35 @@
 
         /* ─── NAV ───────────────────────────────────────────────── */
         nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
             padding: 16px 24px;
-            background: rgba(6,11,24,0.75);
+            background: rgba(6, 11, 24, 0.75);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
+
         .nav-brand {
-            display: flex; align-items: center; gap: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-decoration: none;
         }
+
         .nav-brand img {
-            width: 36px; height: 36px;
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
             border: 1px solid var(--gold-dark);
             object-fit: contain;
         }
+
         .nav-brand span {
             font-family: 'Cinzel', serif;
             font-weight: 700;
@@ -117,9 +185,12 @@
             color: var(--gold-light);
             letter-spacing: 0.05em;
         }
+
         .nav-links {
-            display: flex; gap: 8px;
+            display: flex;
+            gap: 8px;
         }
+
         .nav-btn {
             text-decoration: none;
             padding: 8px 18px;
@@ -129,38 +200,47 @@
             transition: all 0.2s;
             white-space: nowrap;
         }
+
         .nav-btn-ghost {
             color: var(--text-muted);
             border: 1px solid transparent;
         }
+
         .nav-btn-ghost:hover {
             color: var(--text);
             border-color: var(--border);
         }
+
         .nav-btn-gold {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
             color: #000;
             border: none;
         }
+
         .nav-btn-gold:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(212,175,55,0.35);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
         }
 
         /* ─── HERO ──────────────────────────────────────────────── */
         .hero {
             min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             padding: 120px 24px 80px;
         }
+
         .hero-badge {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 6px 16px;
-            border: 1px solid rgba(212,175,55,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 100px;
-            background: rgba(212,175,55,0.08);
+            background: rgba(212, 175, 55, 0.08);
             color: var(--gold);
             font-size: 0.78rem;
             font-weight: 600;
@@ -169,28 +249,43 @@
             margin-bottom: 32px;
             animation: fadeUp 0.8s ease both;
         }
+
         .hero-badge-dot {
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: var(--gold);
             animation: pulse 2s ease-in-out infinite;
         }
-        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
 
         .hero-logo {
-            width: 150px; height: 150px;
+            width: 150px;
+            height: 150px;
             border-radius: 28px;
-            border: 2px solid rgba(212,175,55,0.35);
-            box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 0 120px rgba(212,175,55,0.08);
+            border: 2px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.2), 0 0 120px rgba(212, 175, 55, 0.08);
             margin-bottom: 32px;
             animation: fadeUp 0.9s ease both 0.1s;
             object-fit: contain;
             background: transparent;
             transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .hero-logo:hover {
             transform: scale(1.05) rotate(-2deg);
-            box-shadow: 0 0 80px rgba(212,175,55,0.35);
+            box-shadow: 0 0 80px rgba(212, 175, 55, 0.35);
         }
 
         h1.hero-title {
@@ -206,6 +301,7 @@
             margin-bottom: 16px;
             animation: fadeUp 1s ease both 0.2s;
         }
+
         .hero-sub {
             font-family: 'Cinzel', serif;
             font-size: clamp(0.95rem, 2.5vw, 1.2rem);
@@ -215,6 +311,7 @@
             margin-bottom: 24px;
             animation: fadeUp 1s ease both 0.3s;
         }
+
         .hero-desc {
             max-width: 580px;
             font-size: 1.05rem;
@@ -223,17 +320,24 @@
             margin-bottom: 48px;
             animation: fadeUp 1s ease both 0.4s;
         }
-        .hero-desc strong { color: var(--text); }
+
+        .hero-desc strong {
+            color: var(--text);
+        }
 
         .hero-btns {
-            display: flex; flex-wrap: wrap;
-            gap: 16px; justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
             animation: fadeUp 1s ease both 0.5s;
         }
 
         /* Store Buttons */
         .store-btn {
-            display: flex; align-items: center; gap: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
             text-decoration: none;
             padding: 14px 28px;
             border-radius: 14px;
@@ -242,35 +346,54 @@
             position: relative;
             overflow: hidden;
         }
+
         .store-btn::before {
             content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
             opacity: 0;
             transition: opacity 0.3s;
         }
-        .store-btn:hover::before { opacity: 1; }
-        .store-btn:hover { transform: translateY(-3px); }
+
+        .store-btn:hover::before {
+            opacity: 1;
+        }
+
+        .store-btn:hover {
+            transform: translateY(-3px);
+        }
 
         .store-btn-google {
             background: #0a0a0a;
-            border: 1.5px solid rgba(100,200,100,0.3);
-        }
-        .store-btn-google:hover {
-            border-color: #34d058;
-            box-shadow: 0 8px 32px rgba(52,208,88,0.25);
-        }
-        .store-btn-apple {
-            background: #0a0a0a;
-            border: 1.5px solid rgba(180,180,180,0.25);
-        }
-        .store-btn-apple:hover {
-            border-color: rgba(255,255,255,0.5);
-            box-shadow: 0 8px 32px rgba(255,255,255,0.15);
+            border: 1.5px solid rgba(100, 200, 100, 0.3);
         }
 
-        .store-btn-icon { flex-shrink: 0; }
-        .store-btn-text { display: flex; flex-direction: column; text-align: left; }
+        .store-btn-google:hover {
+            border-color: #34d058;
+            box-shadow: 0 8px 32px rgba(52, 208, 88, 0.25);
+        }
+
+        .store-btn-apple {
+            background: #0a0a0a;
+            border: 1.5px solid rgba(180, 180, 180, 0.25);
+        }
+
+        .store-btn-apple:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+        }
+
+        .store-btn-icon {
+            flex-shrink: 0;
+        }
+
+        .store-btn-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
         .store-btn-label {
             font-size: 0.7rem;
             font-weight: 500;
@@ -280,6 +403,7 @@
             line-height: 1;
             margin-bottom: 3px;
         }
+
         .store-btn-name {
             font-size: 1.15rem;
             font-weight: 700;
@@ -293,13 +417,20 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 32px;
             text-align: center;
         }
-        .stat-item { display: flex; flex-direction: column; gap: 6px; }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
         .stat-value {
             font-family: 'Cinzel', serif;
             font-size: 2rem;
@@ -307,6 +438,7 @@
             color: var(--gold-light);
             line-height: 1;
         }
+
         .stat-label {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -319,6 +451,7 @@
             text-align: center;
             margin-bottom: 56px;
         }
+
         .section-tag {
             display: inline-block;
             font-size: 0.72rem;
@@ -328,6 +461,7 @@
             color: var(--gold);
             margin-bottom: 12px;
         }
+
         .section-title {
             font-family: 'Cinzel', serif;
             font-size: clamp(1.8rem, 4vw, 2.6rem);
@@ -335,12 +469,14 @@
             color: #fff;
             line-height: 1.2;
         }
+
         .section-title span {
             background: linear-gradient(135deg, var(--gold-light), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .section-desc {
             margin-top: 16px;
             font-size: 1rem;
@@ -351,12 +487,16 @@
         }
 
         /* ─── FEATURES ──────────────────────────────────────────── */
-        .features { padding: 100px 0; }
+        .features {
+            padding: 100px 0;
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
+
         .feature-card {
             background: var(--navy-card);
             border: 1px solid var(--border);
@@ -366,29 +506,40 @@
             position: relative;
             overflow: hidden;
         }
+
         .feature-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
             opacity: 0;
             transition: opacity 0.3s;
         }
+
         .feature-card:hover {
-            border-color: rgba(212,175,55,0.25);
+            border-color: rgba(212, 175, 55, 0.25);
             transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
-        .feature-card:hover::before { opacity: 1; }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
 
         .feature-icon {
-            width: 52px; height: 52px;
+            width: 52px;
+            height: 52px;
             border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.6rem;
             margin-bottom: 20px;
         }
+
         .feature-title {
             font-family: 'Cinzel', serif;
             font-size: 1.05rem;
@@ -396,15 +547,24 @@
             color: #fff;
             margin-bottom: 10px;
         }
-        .feature-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
 
         /* ─── SCREENSHOTS ───────────────────────────────────────── */
-        .screenshots { padding: 100px 0; }
+        .screenshots {
+            padding: 100px 0;
+        }
+
         .screenshots-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
         }
+
         .screenshot-card {
             border-radius: var(--radius);
             overflow: hidden;
@@ -414,23 +574,34 @@
             aspect-ratio: 16/10;
             transition: all 0.3s;
         }
+
         .screenshot-card:hover {
             transform: scale(1.02);
-            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-            border-color: rgba(212,175,55,0.3);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+            border-color: rgba(212, 175, 55, 0.3);
         }
+
         .screenshot-card img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             opacity: 0.85;
             transition: opacity 0.3s;
         }
-        .screenshot-card:hover img { opacity: 1; }
-        .screenshot-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 20px 20px 16px;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+
+        .screenshot-card:hover img {
+            opacity: 1;
         }
+
+        .screenshot-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 20px 16px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+        }
+
         .screenshot-label {
             font-family: 'Cinzel', serif;
             font-size: 0.8rem;
@@ -440,24 +611,35 @@
         }
 
         /* ─── DOWNLOAD SECTION ──────────────────────────────────── */
-        .download { padding: 100px 0; }
+        .download {
+            padding: 100px 0;
+        }
+
         .download-card {
-            background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(0,212,255,0.04) 100%);
-            border: 1px solid rgba(212,175,55,0.2);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(0, 212, 255, 0.04) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 24px;
             padding: 72px 48px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
+
         .download-card::before {
             content: '';
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at center, rgba(212,175,55,0.05) 0%, transparent 60%);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
         }
-        .download-card > * { position: relative; z-index: 1; }
+
+        .download-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
         .download-title {
             font-family: 'Cinzel', serif;
             font-size: clamp(1.8rem, 4vw, 2.8rem);
@@ -465,20 +647,26 @@
             color: #fff;
             margin-bottom: 16px;
         }
+
         .download-desc {
             font-size: 1.05rem;
             color: var(--text-muted);
             max-width: 480px;
             margin: 0 auto 48px;
         }
+
         .download-btns {
-            display: flex; flex-wrap: wrap;
-            gap: 20px; justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
         }
 
         /* Store Buttons Large */
         .store-btn-lg {
-            display: flex; align-items: center; gap: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
             text-decoration: none;
             padding: 18px 36px;
             border-radius: 16px;
@@ -487,28 +675,52 @@
             position: relative;
             overflow: hidden;
         }
-        .store-btn-lg:hover { transform: translateY(-4px); }
+
+        .store-btn-lg:hover {
+            transform: translateY(-4px);
+        }
 
         .store-btn-lg-google {
             background: linear-gradient(135deg, #1a2e1a 0%, #0f1f0f 100%);
-            border: 1.5px solid rgba(52,208,88,0.4);
+            border: 1.5px solid rgba(52, 208, 88, 0.4);
         }
+
         .store-btn-lg-google:hover {
             border-color: #34d058;
-            box-shadow: 0 12px 40px rgba(52,208,88,0.3);
+            box-shadow: 0 12px 40px rgba(52, 208, 88, 0.3);
         }
+
         .store-btn-lg-apple {
             background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1f 100%);
-            border: 1.5px solid rgba(150,150,255,0.35);
+            border: 1.5px solid rgba(150, 150, 255, 0.35);
         }
+
         .store-btn-lg-apple:hover {
-            border-color: rgba(200,200,255,0.6);
-            box-shadow: 0 12px 40px rgba(150,150,255,0.25);
+            border-color: rgba(200, 200, 255, 0.6);
+            box-shadow: 0 12px 40px rgba(150, 150, 255, 0.25);
         }
-        .store-btn-lg .store-btn-icon { flex-shrink: 0; }
-        .store-btn-lg .store-btn-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
-        .store-btn-lg .store-btn-name { font-size: 1.3rem; font-weight: 700; color: #fff; }
-        .store-btn-lg .store-btn-text { text-align: left; }
+
+        .store-btn-lg .store-btn-icon {
+            flex-shrink: 0;
+        }
+
+        .store-btn-lg .store-btn-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .store-btn-lg .store-btn-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .store-btn-lg .store-btn-text {
+            text-align: left;
+        }
 
         /* ─── FOOTER ────────────────────────────────────────────── */
         footer {
@@ -516,22 +728,31 @@
             border-top: 1px solid var(--border);
             text-align: center;
         }
+
         .footer-nav {
-            display: flex; flex-wrap: wrap;
-            justify-content: center; gap: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
             margin-bottom: 24px;
         }
+
         .footer-nav a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.85rem;
             transition: color 0.2s;
         }
-        .footer-nav a:hover { color: var(--gold); }
+
+        .footer-nav a:hover {
+            color: var(--gold);
+        }
+
         .footer-copy {
             font-size: 0.8rem;
-            color: rgba(136,150,168,0.5);
+            color: rgba(136, 150, 168, 0.5);
         }
+
         .footer-copy span {
             color: var(--gold);
             font-family: 'Cinzel', serif;
@@ -539,14 +760,23 @@
 
         /* ─── ANIMATIONS ────────────────────────────────────────── */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
+
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
@@ -554,34 +784,70 @@
 
         /* ─── FLOATING XO ───────────────────────────────────────── */
         .floating-symbols {
-            position: absolute; inset: 0;
-            overflow: hidden; pointer-events: none;
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
+
         .sym {
             position: absolute;
             font-family: 'Cinzel', serif;
             font-weight: 900;
-            color: rgba(212,175,55,0.06);
+            color: rgba(212, 175, 55, 0.06);
             font-size: 6rem;
             animation: floatSym linear infinite;
         }
+
         @keyframes floatSym {
-            from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10%  { opacity: 1; }
-            90%  { opacity: 1; }
-            to   { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* ─── RESPONSIVE ────────────────────────────────────────── */
         @media (max-width: 768px) {
-            .download-card { padding: 48px 24px; }
-            .store-btn-lg { min-width: 100%; justify-content: center; }
-            .nav-links .nav-btn-ghost { display: none; }
-            .features-grid { grid-template-columns: 1fr; }
+            .download-card {
+                padding: 48px 24px;
+            }
+
+            .store-btn-lg {
+                min-width: 100%;
+                justify-content: center;
+            }
+
+            .nav-links .nav-btn-ghost {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
+
         @media (max-width: 480px) {
-            .store-btn { min-width: 100%; }
-            .hero-btns { flex-direction: column; align-items: center; }
+            .store-btn {
+                min-width: 100%;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -613,12 +879,18 @@
 
             <!-- Floating XO symbols -->
             <div class="floating-symbols" aria-hidden="true">
-                <span class="sym" style="left:5%;  animation-duration:18s; animation-delay:0s;   font-size:5rem;">X</span>
-                <span class="sym" style="left:20%; animation-duration:24s; animation-delay:4s;   font-size:8rem;">O</span>
-                <span class="sym" style="left:40%; animation-duration:20s; animation-delay:8s;   font-size:6rem;">X</span>
-                <span class="sym" style="left:65%; animation-duration:22s; animation-delay:2s;   font-size:9rem;">O</span>
-                <span class="sym" style="left:82%; animation-duration:19s; animation-delay:6s;   font-size:5rem;">X</span>
-                <span class="sym" style="left:55%; animation-duration:26s; animation-delay:10s;  font-size:7rem;">O</span>
+                <span class="sym"
+                    style="left:5%;  animation-duration:18s; animation-delay:0s;   font-size:5rem;">X</span>
+                <span class="sym"
+                    style="left:20%; animation-duration:24s; animation-delay:4s;   font-size:8rem;">O</span>
+                <span class="sym"
+                    style="left:40%; animation-duration:20s; animation-delay:8s;   font-size:6rem;">X</span>
+                <span class="sym"
+                    style="left:65%; animation-duration:22s; animation-delay:2s;   font-size:9rem;">O</span>
+                <span class="sym"
+                    style="left:82%; animation-duration:19s; animation-delay:6s;   font-size:5rem;">X</span>
+                <span class="sym"
+                    style="left:55%; animation-duration:26s; animation-delay:10s;  font-size:7rem;">O</span>
             </div>
 
             <div class="hero-badge">
@@ -632,20 +904,27 @@
             <h1 class="hero-title">WAR OF OLDER</h1>
             <p class="hero-sub">The Ultimate Tic-Tac-Toe Battle</p>
             <p class="hero-desc">
-                Outsmart opponents in real-time online duels across <strong>4 unique boards</strong>.
+                Outsmart opponents in real-time online duels across <strong>5 unique boards</strong>.
                 Climb the global ranking, collect rewards, and prove you are the greatest strategist.
             </p>
 
             <div class="hero-btns">
                 <!-- Google Play -->
-                <a href="https://play.google.com/store/apps/details?id=com.warofolder.app"
-                   target="_blank" rel="noopener" class="store-btn store-btn-google" id="btn-google-hero">
+                <a href="https://play.google.com/store/apps/details?id=com.warofolder.app" target="_blank"
+                    rel="noopener" class="store-btn store-btn-google" id="btn-google-hero">
                     <span class="store-btn-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3.60889 1.29773C3.22891 1.52686 2.97168 1.94853 2.97168 2.43919V21.5608C2.97168 22.0515 3.22891 22.4731 3.60889 22.7023L3.70286 22.7896L14.2769 12.2156V12.0003V11.7844L3.70286 1.21045L3.60889 1.29773Z" fill="#4CAF50"/>
-                            <path d="M17.7682 15.7078L14.2769 12.2165V12.0003V11.7841L17.769 8.29199L17.8814 8.35765L22.034 10.7244C23.2216 11.398 23.2216 12.6026 22.034 13.2762L17.8814 15.643L17.7682 15.7078Z" fill="#FFD600"/>
-                            <path d="M17.8814 15.643L14.2769 12.0003L3.60889 22.7023C4.00145 23.12 4.64315 23.1722 5.36195 22.7722L17.8814 15.643Z" fill="#F44336"/>
-                            <path d="M3.60889 1.29773L17.8814 8.35765L14.2769 12.0003L3.60889 1.29773Z" fill="#4CAF50" opacity="0.8"/>
+                            <path
+                                d="M3.60889 1.29773C3.22891 1.52686 2.97168 1.94853 2.97168 2.43919V21.5608C2.97168 22.0515 3.22891 22.4731 3.60889 22.7023L3.70286 22.7896L14.2769 12.2156V12.0003V11.7844L3.70286 1.21045L3.60889 1.29773Z"
+                                fill="#4CAF50" />
+                            <path
+                                d="M17.7682 15.7078L14.2769 12.2165V12.0003V11.7841L17.769 8.29199L17.8814 8.35765L22.034 10.7244C23.2216 11.398 23.2216 12.6026 22.034 13.2762L17.8814 15.643L17.7682 15.7078Z"
+                                fill="#FFD600" />
+                            <path
+                                d="M17.8814 15.643L14.2769 12.0003L3.60889 22.7023C4.00145 23.12 4.64315 23.1722 5.36195 22.7722L17.8814 15.643Z"
+                                fill="#F44336" />
+                            <path d="M3.60889 1.29773L17.8814 8.35765L14.2769 12.0003L3.60889 1.29773Z" fill="#4CAF50"
+                                opacity="0.8" />
                         </svg>
                     </span>
                     <span class="store-btn-text">
@@ -655,11 +934,12 @@
                 </a>
 
                 <!-- App Store -->
-                <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320"
-                   target="_blank" rel="noopener" class="store-btn store-btn-apple" id="btn-apple-hero">
+                <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320" target="_blank"
+                    rel="noopener" class="store-btn store-btn-apple" id="btn-apple-hero">
                     <span class="store-btn-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.88 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.69C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.04 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+                            <path
+                                d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.88 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.69C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.04 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
                         </svg>
                     </span>
                     <span class="store-btn-text">
@@ -679,7 +959,7 @@
                         <span class="stat-label">Countries</span>
                     </div>
                     <div class="stat-item reveal" style="transition-delay:0.1s">
-                        <span class="stat-value">4</span>
+                        <span class="stat-value">5</span>
                         <span class="stat-label">Unique Boards</span>
                     </div>
                     <div class="stat-item reveal" style="transition-delay:0.2s">
@@ -700,39 +980,46 @@
                 <div class="section-header reveal">
                     <span class="section-tag">Why Play War of Older</span>
                     <h2 class="section-title">Not Your Average <span>Tic-Tac-Toe</span></h2>
-                    <p class="section-desc">Five distinct game modes, global competition, and a ranking system that rewards true skill.</p>
+                    <p class="section-desc">Five distinct game modes, global competition, and a ranking system that
+                        rewards true skill.</p>
                 </div>
 
                 <div class="features-grid">
                     <div class="feature-card reveal">
                         <div class="feature-icon" style="background:rgba(212,175,55,0.12);">⚔️</div>
                         <h3 class="feature-title">Real-Time Duels</h3>
-                        <p class="feature-desc">Challenge players from around the world in fast-paced online matches. No bots, no delays — pure human competition.</p>
+                        <p class="feature-desc">Challenge players from around the world in fast-paced online matches. No
+                            bots, no delays — pure human competition.</p>
                     </div>
                     <div class="feature-card reveal" style="transition-delay:0.1s">
                         <div class="feature-icon" style="background:rgba(0,212,255,0.1);">🗺️</div>
-                        <h3 class="feature-title">4 Unique Boards</h3>
-                        <p class="feature-desc">Classic 3×3, expanded 4×4, intense 5×5, Parallel Worlds, and more. Each board demands a completely different strategy.</p>
+                        <h3 class="feature-title">5 Unique Boards</h3>
+                        <p class="feature-desc">Classic 3×3, expanded 4×4, intense 5×5, Parallel Worlds, and more. Each
+                            board demands a completely different strategy.</p>
                     </div>
                     <div class="feature-card reveal" style="transition-delay:0.2s">
                         <div class="feature-icon" style="background:rgba(168,85,247,0.1);">🏆</div>
                         <h3 class="feature-title">Global Ranking</h3>
-                        <p class="feature-desc">Compete in a live leaderboard updated every hour. Earn score points, rise through the ranks, and earn exclusive rewards.</p>
+                        <p class="feature-desc">Compete in a live leaderboard updated every hour. Earn score points,
+                            rise through the ranks, and earn exclusive rewards.</p>
                     </div>
                     <div class="feature-card reveal" style="transition-delay:0.3s">
                         <div class="feature-icon" style="background:rgba(52,211,153,0.1);">🎮</div>
                         <h3 class="feature-title">Offline Mode</h3>
-                        <p class="feature-desc">No internet? No problem. Play locally against a friend or the AI on the same device, anytime, anywhere.</p>
+                        <p class="feature-desc">No internet? No problem. Play locally against a friend or the AI on the
+                            same device, anytime, anywhere.</p>
                     </div>
                     <div class="feature-card reveal" style="transition-delay:0.4s">
                         <div class="feature-icon" style="background:rgba(251,191,36,0.1);">🏅</div>
                         <h3 class="feature-title">Tournaments</h3>
-                        <p class="feature-desc">Create or join private tournaments with friends. Set custom rules, time limits, and compete for the top spot.</p>
+                        <p class="feature-desc">Create or join private tournaments with friends. Set custom rules, time
+                            limits, and compete for the top spot.</p>
                     </div>
                     <div class="feature-card reveal" style="transition-delay:0.5s">
                         <div class="feature-icon" style="background:rgba(239,68,68,0.1);">✨</div>
                         <h3 class="feature-title">Custom Skins</h3>
-                        <p class="feature-desc">Unlock exclusive board and piece skins. Show off your style and intimidate opponents before the match even starts.</p>
+                        <p class="feature-desc">Unlock exclusive board and piece skins. Show off your style and
+                            intimidate opponents before the match even starts.</p>
                     </div>
                 </div>
             </div>
@@ -749,14 +1036,14 @@
                 <div class="screenshots-grid">
                     <div class="screenshot-card reveal">
                         <img src="images/gameplay1.jpeg" alt="War of Older – Strategic Combat"
-                             onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a2e,#0f0f1f)'; this.style.display='none';" />
+                            onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a2e,#0f0f1f)'; this.style.display='none';" />
                         <div class="screenshot-overlay">
                             <span class="screenshot-label">Strategic Combat</span>
                         </div>
                     </div>
                     <div class="screenshot-card reveal" style="transition-delay:0.15s">
                         <img src="images/gameplay2.jpeg" alt="War of Older – Global Rankings"
-                             onerror="this.parentElement.style.background='linear-gradient(135deg,#1a2e1a,#0f1f0f)'; this.style.display='none';" />
+                            onerror="this.parentElement.style.background='linear-gradient(135deg,#1a2e1a,#0f1f0f)'; this.style.display='none';" />
                         <div class="screenshot-overlay">
                             <span class="screenshot-label">Global Rankings</span>
                         </div>
@@ -771,18 +1058,26 @@
                 <div class="download-card reveal">
                     <span class="section-tag">Ready to Play?</span>
                     <h2 class="download-title">Download War of Older</h2>
-                    <p class="download-desc">Free to play. Available now on both iOS and Android. Join thousands of players already competing.</p>
+                    <p class="download-desc">Free to play. Available now on both iOS and Android. Join thousands of
+                        players already competing.</p>
 
                     <div class="download-btns">
                         <!-- Google Play Large -->
-                        <a href="https://play.google.com/store/apps/details?id=com.warofolder.app"
-                           target="_blank" rel="noopener" class="store-btn-lg store-btn-lg-google" id="btn-google-cta">
+                        <a href="https://play.google.com/store/apps/details?id=com.warofolder.app" target="_blank"
+                            rel="noopener" class="store-btn-lg store-btn-lg-google" id="btn-google-cta">
                             <span class="store-btn-icon">
                                 <svg width="38" height="38" viewBox="0 0 24 24" fill="none">
-                                    <path d="M3.60889 1.29773C3.22891 1.52686 2.97168 1.94853 2.97168 2.43919V21.5608C2.97168 22.0515 3.22891 22.4731 3.60889 22.7023L3.70286 22.7896L14.2769 12.2156V11.7844L3.70286 1.21045L3.60889 1.29773Z" fill="#4CAF50"/>
-                                    <path d="M17.7682 15.7078L14.2769 12.2165V11.7841L17.769 8.29199L17.8814 8.35765L22.034 10.7244C23.2216 11.398 23.2216 12.6026 22.034 13.2762L17.8814 15.643L17.7682 15.7078Z" fill="#FFD600"/>
-                                    <path d="M17.8814 15.643L14.2769 12.0003L3.60889 22.7023C4.00145 23.12 4.64315 23.1722 5.36195 22.7722L17.8814 15.643Z" fill="#F44336"/>
-                                    <path d="M3.60889 1.29773L17.8814 8.35765L14.2769 12.0003L3.60889 1.29773Z" fill="#4CAF50" opacity="0.8"/>
+                                    <path
+                                        d="M3.60889 1.29773C3.22891 1.52686 2.97168 1.94853 2.97168 2.43919V21.5608C2.97168 22.0515 3.22891 22.4731 3.60889 22.7023L3.70286 22.7896L14.2769 12.2156V11.7844L3.70286 1.21045L3.60889 1.29773Z"
+                                        fill="#4CAF50" />
+                                    <path
+                                        d="M17.7682 15.7078L14.2769 12.2165V11.7841L17.769 8.29199L17.8814 8.35765L22.034 10.7244C23.2216 11.398 23.2216 12.6026 22.034 13.2762L17.8814 15.643L17.7682 15.7078Z"
+                                        fill="#FFD600" />
+                                    <path
+                                        d="M17.8814 15.643L14.2769 12.0003L3.60889 22.7023C4.00145 23.12 4.64315 23.1722 5.36195 22.7722L17.8814 15.643Z"
+                                        fill="#F44336" />
+                                    <path d="M3.60889 1.29773L17.8814 8.35765L14.2769 12.0003L3.60889 1.29773Z"
+                                        fill="#4CAF50" opacity="0.8" />
                                 </svg>
                             </span>
                             <span class="store-btn-text">
@@ -793,10 +1088,11 @@
 
                         <!-- App Store Large -->
                         <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320"
-                           target="_blank" rel="noopener" class="store-btn-lg store-btn-lg-apple" id="btn-apple-cta">
+                            target="_blank" rel="noopener" class="store-btn-lg store-btn-lg-apple" id="btn-apple-cta">
                             <span class="store-btn-icon">
                                 <svg width="38" height="38" viewBox="0 0 24 24" fill="white">
-                                    <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.88 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.69C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.04 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+                                    <path
+                                        d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.88 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.69C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.04 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
                                 </svg>
                             </span>
                             <span class="store-btn-text">
@@ -813,9 +1109,11 @@
         <footer>
             <nav class="footer-nav">
                 <a href="support/index.html">Support</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="https://play.google.com/store/apps/details?id=com.warofolder.app" target="_blank" rel="noopener">Google Play</a>
-                <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320" target="_blank" rel="noopener">App Store</a>
+                <a href="privacy_policy.html">Privacy Policy</a>
+                <a href="https://play.google.com/store/apps/details?id=com.warofolder.app" target="_blank"
+                    rel="noopener">Google Play</a>
+                <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320" target="_blank"
+                    rel="noopener">App Store</a>
             </nav>
             <p class="footer-copy">
                 &copy; 2026 <span>War of Older</span>. All rights reserved.
@@ -850,4 +1148,5 @@
     </script>
 
 </body>
+
 </html>
