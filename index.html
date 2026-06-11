@@ -819,35 +819,193 @@
             }
         }
 
-        /* ─── RESPONSIVE ────────────────────────────────────────── */
-        @media (max-width: 768px) {
-            .download-card {
-                padding: 48px 24px;
-            }
+        /* ─── SOCIAL LINKS ───────────────────────────────────────── */
+        .social-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+            animation: fadeUp 1s ease both 0.6s;
+        }
+        .social-row-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            margin-right: 4px;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--navy-card);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .social-link::before {
+            content: '';
+            position: absolute; inset: 0;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .social-link:hover {
+            transform: translateY(-4px);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .social-link:hover::before { opacity: 1; }
+        .social-link.yt:hover  { border-color: #ff0000; box-shadow: 0 8px 24px rgba(255,0,0,0.25); }
+        .social-link.yt::before { background: rgba(255,0,0,0.1); }
+        .social-link.tt:hover  { border-color: #69C9D0; box-shadow: 0 8px 24px rgba(105,201,208,0.2); }
+        .social-link.tt::before { background: rgba(105,201,208,0.08); }
+        .social-link.ig:hover  { border-color: #E1306C; box-shadow: 0 8px 24px rgba(225,48,108,0.25); }
+        .social-link.ig::before { background: rgba(225,48,108,0.08); }
+        .social-link.xv:hover  { border-color: rgba(255,255,255,0.5); box-shadow: 0 8px 24px rgba(255,255,255,0.1); }
+        .social-link.xv::before { background: rgba(255,255,255,0.05); }
+        .social-link svg { width: 20px; height: 20px; position: relative; z-index: 1; }
 
-            .store-btn-lg {
-                min-width: 100%;
-                justify-content: center;
-            }
-
-            .nav-links .nav-btn-ghost {
-                display: none;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
+        /* ─── STORY SECTION ─────────────────────────────────────── */
+        .story { padding: 100px 0; }
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        .phone-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .phone-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -40px;
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .phone-frame {
+            position: relative;
+            width: 230px;
+            border-radius: 38px;
+            border: 2px solid rgba(212,175,55,0.35);
+            background: #000;
+            box-shadow:
+                0 0 0 6px rgba(0,0,0,0.5),
+                0 0 0 7px rgba(212,175,55,0.1),
+                0 32px 80px rgba(0,0,0,0.7);
+            overflow: hidden;
+            aspect-ratio: 9/16;
+        }
+        .phone-notch {
+            position: absolute;
+            top: 12px; left: 50%;
+            transform: translateX(-50%);
+            width: 72px; height: 5px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 3px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .phone-frame iframe {
+            width: 100%; height: 100%;
+            border: none; display: block;
+        }
+        .story-content { display: flex; flex-direction: column; gap: 0; }
+        .story-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2.1rem);
+            font-weight: 700; color: #fff;
+            line-height: 1.2; margin-bottom: 16px;
+        }
+        .story-title span {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .story-desc {
+            color: var(--text-muted);
+            font-size: 0.97rem; line-height: 1.75;
+            margin-bottom: 28px;
+        }
+        .story-desc strong { color: var(--text); }
+        .story-socials {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin-bottom: 28px;
+        }
+        .story-social-btn {
+            display: inline-flex; align-items: center; gap: 9px;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--navy-card);
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.25s;
+        }
+        .story-social-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .story-social-btn:hover { transform: translateY(-2px); color: #fff; }
+        .story-social-btn.yt:hover  { border-color: #ff0000; box-shadow: 0 4px 16px rgba(255,0,0,0.2); }
+        .story-social-btn.tt:hover  { border-color: #69C9D0; box-shadow: 0 4px 16px rgba(105,201,208,0.2); }
+        .story-social-btn.ig:hover  { border-color: #E1306C; box-shadow: 0 4px 16px rgba(225,48,108,0.2); }
+        .story-social-btn.xv:hover  { border-color: rgba(255,255,255,0.4); }
+        .story-yt-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            background: rgba(255,0,0,0.1);
+            border: 1px solid rgba(255,0,0,0.3);
+            color: #ff6b6b; font-weight: 600; font-size: 0.88rem;
+            transition: all 0.25s;
+        }
+        .story-yt-link:hover {
+            background: rgba(255,0,0,0.2);
+            border-color: #ff0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,0,0,0.25);
         }
 
-        @media (max-width: 480px) {
-            .store-btn {
-                min-width: 100%;
-            }
+        /* ─── FOOTER SOCIALS ────────────────────────────────────── */
+        .footer-socials {
+            display: flex; justify-content: center;
+            gap: 10px; margin-bottom: 20px;
+        }
+        .footer-social {
+            display: flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--navy-card);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .footer-social:hover { color: var(--gold); border-color: rgba(212,175,55,0.35); transform: translateY(-2px); }
+        .footer-social svg { width: 17px; height: 17px; }
 
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-            }
+        /* ─── RESPONSIVE ────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .download-card { padding: 48px 24px; }
+            .store-btn-lg { min-width: 100%; justify-content: center; }
+            .nav-links .nav-btn-ghost { display: none; }
+            .features-grid { grid-template-columns: 1fr; }
+            .story-grid { grid-template-columns: 1fr; }
+            .phone-frame { width: 200px; }
+        }
+        @media (max-width: 480px) {
+            .store-btn { min-width: 100%; }
+            .hero-btns { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -948,6 +1106,43 @@
                     </span>
                 </a>
             </div>
+
+            <!-- Social media row -->
+            <div class="social-row">
+                <span class="social-row-label">Follow us</span>
+
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@warofolder" target="_blank" rel="noopener"
+                    class="social-link yt" title="YouTube" id="social-youtube">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@warofolderapp" target="_blank" rel="noopener"
+                    class="social-link tt" title="TikTok" id="social-tiktok">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.84a8.23 8.23 0 0 0 4.84 1.54V6.93a4.85 4.85 0 0 1-1.07-.24z"/>
+                    </svg>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/warofolder.game/" target="_blank" rel="noopener"
+                    class="social-link ig" title="Instagram" id="social-instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                </a>
+
+                <!-- X -->
+                <a href="https://x.com/older_war" target="_blank" rel="noopener"
+                    class="social-link xv" title="X (Twitter)" id="social-x">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.261 5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+            </div>
         </section>
 
         <!-- ── STATS ─────────────────────────────────────────────── -->
@@ -1021,6 +1216,70 @@
                         <p class="feature-desc">Unlock exclusive board and piece skins. Show off your style and
                             intimidate opponents before the match even starts.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── STORY / YOUTUBE SHORT ─────────────────────────────── -->
+        <section class="story" id="story">
+            <div class="container">
+                <div class="story-grid">
+
+                    <!-- Phone frame with embedded Short -->
+                    <div class="phone-wrap reveal">
+                        <div class="phone-frame">
+                            <div class="phone-notch"></div>
+                            <iframe
+                                src="https://www.youtube.com/embed/PsIcq1aRBhk?rel=0&loop=1&playlist=PsIcq1aRBhk"
+                                title="War of Older – First Storytelling Short"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Text + social links -->
+                    <div class="story-content reveal" style="transition-delay:0.15s">
+                        <span class="section-tag">Storytelling</span>
+                        <h2 class="story-title">The Legend of <span>War of Older</span> Begins</h2>
+                        <p class="story-desc">
+                            Every great battle has a story. Watch the first chapter of our storytelling series
+                            and discover the universe behind the board. <strong>Follow us</strong> for new
+                            episodes, behind-the-scenes content, and exclusive game updates.
+                        </p>
+
+                        <!-- Social channel buttons -->
+                        <div class="story-socials">
+                            <a href="https://www.youtube.com/@warofolder" target="_blank" rel="noopener"
+                                class="story-social-btn yt">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                YouTube
+                            </a>
+                            <a href="https://www.tiktok.com/@warofolderapp" target="_blank" rel="noopener"
+                                class="story-social-btn tt">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.84a8.23 8.23 0 0 0 4.84 1.54V6.93a4.85 4.85 0 0 1-1.07-.24z"/></svg>
+                                TikTok
+                            </a>
+                            <a href="https://www.instagram.com/warofolder.game/" target="_blank" rel="noopener"
+                                class="story-social-btn ig">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                                Instagram
+                            </a>
+                            <a href="https://x.com/older_war" target="_blank" rel="noopener"
+                                class="story-social-btn xv">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.261 5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                X
+                            </a>
+                        </div>
+
+                        <a href="https://www.youtube.com/shorts/PsIcq1aRBhk" target="_blank" rel="noopener"
+                            class="story-yt-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Watch on YouTube Shorts ↗
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -1107,13 +1366,31 @@
 
         <!-- ── FOOTER ────────────────────────────────────────────── -->
         <footer>
+            <!-- Social icons -->
+            <div class="footer-socials">
+                <a href="https://www.youtube.com/@warofolder" target="_blank" rel="noopener"
+                   class="footer-social" title="YouTube">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@warofolderapp" target="_blank" rel="noopener"
+                   class="footer-social" title="TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.84a8.23 8.23 0 0 0 4.84 1.54V6.93a4.85 4.85 0 0 1-1.07-.24z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/warofolder.game/" target="_blank" rel="noopener"
+                   class="footer-social" title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </a>
+                <a href="https://x.com/older_war" target="_blank" rel="noopener"
+                   class="footer-social" title="X (Twitter)">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.261 5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
+
             <nav class="footer-nav">
                 <a href="support/index.html">Support</a>
                 <a href="privacy_policy.html">Privacy Policy</a>
-                <a href="https://play.google.com/store/apps/details?id=com.warofolder.app" target="_blank"
-                    rel="noopener">Google Play</a>
-                <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320" target="_blank"
-                    rel="noopener">App Store</a>
+                <a href="https://play.google.com/store/apps/details?id=com.warofolder.app" target="_blank" rel="noopener">Google Play</a>
+                <a href="https://apps.apple.com/us/app/war-of-older-o-jogo-da-velha/id6771341320" target="_blank" rel="noopener">App Store</a>
             </nav>
             <p class="footer-copy">
                 &copy; 2026 <span>War of Older</span>. All rights reserved.
